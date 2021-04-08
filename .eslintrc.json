@@ -1,14 +1,20 @@
 {
   "extends": "standard-with-typescript",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    }
+  ],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "no-unused-vars": "off",
-    "@typescript-eslint/consistent-type-definition": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "off"
   },
   "ignorePatterns": [
     "*.spec.js"
