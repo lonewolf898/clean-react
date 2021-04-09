@@ -1,18 +1,28 @@
 import { RemoteAuthentication } from './remote-authentication'
 import { HttpPostClientSpy } from '../../test/mock-http-client'
+import faker from 'faker'
+
+type SutTypes = {
+  sut: RemoteAuthentication
+  httpPostClientSpy: HttpPostClientSpy
+}
+
+const makeSut = (url: string = faker.internet.url()): SutTypes => {
+  const httpPostClientSpy = new HttpPostClientSpy()
+  const sut = new RemoteAuthentication(url, httpPostClientSpy)
+
+  return {
+    sut,
+    httpPostClientSpy
+  }
+}
 
 describe('RemoteAuthentication', () => {
   test('Should call HttpClient with correct URL', async () => {
-
-    const url = 'any_url'
-    const httpPostClient = new HttpPostClientSpy()
-
-    // criar abstração http
-    // criar interface para a call http
-    const sut = new RemoteAuthentication(url, httpPostClient)
+    const url = faker.internet.url()
+    const { sut, httpPostClientSpy } = makeSut(url)
     await sut.auth()
-    expect(httpPostClient.url).toBe(url)
 
-    // infraestrutura executa com o framework escolhido
+    expect(httpPostClientSpy.url).toBe(url)
   })
 })
